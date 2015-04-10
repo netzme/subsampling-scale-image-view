@@ -227,6 +227,8 @@ public class SubsamplingScaleImageView extends View {
     private RectF sRect;
     private float[] srcArray = new float[8];
     private float[] dstArray = new float[8];
+    private int panLimitX;
+    private int panLimitY;
 
     public SubsamplingScaleImageView(Context context, AttributeSet attr) {
         super(context, attr);
@@ -1215,8 +1217,8 @@ public class SubsamplingScaleImageView extends View {
         float scaleHeight = scale * sHeight();
 
         if (panLimit == PAN_LIMIT_CENTER && isReady()) {
-            vTranslate.x = Math.max(vTranslate.x, getWidth()/2 - scaleWidth);
-            vTranslate.y = Math.max(vTranslate.y, getHeight()/2 - scaleHeight);
+            vTranslate.x = Math.max(vTranslate.x, (getWidth() + panLimitX) /2 - scaleWidth);
+            vTranslate.y = Math.max(vTranslate.y, (getHeight() + panLimitY) /2 - scaleHeight);
         } else if (center) {
             vTranslate.x = Math.max(vTranslate.x, getWidth() - scaleWidth);
             vTranslate.y = Math.max(vTranslate.y, getHeight() - scaleHeight);
@@ -1232,8 +1234,8 @@ public class SubsamplingScaleImageView extends View {
         float maxTx;
         float maxTy;
         if (panLimit == PAN_LIMIT_CENTER && isReady()) {
-            maxTx = Math.max(0, getWidth()/2);
-            maxTy = Math.max(0, getHeight()/2);
+            maxTx = Math.max(0, (getWidth() - panLimitX) / 2);
+            maxTy = Math.max(0, (getHeight() - panLimitY) / 2);
         } else if (center) {
             maxTx = Math.max(0, (getWidth() - scaleWidth) * xPaddingRatio);
             maxTy = Math.max(0, (getHeight() - scaleHeight) * yPaddingRatio);
@@ -1246,6 +1248,11 @@ public class SubsamplingScaleImageView extends View {
         vTranslate.y = Math.min(vTranslate.y, maxTy);
 
         sat.scale = scale;
+    }
+
+    public void setPanOffset(int x, int y) {
+        this.panLimitX = x;
+        this.panLimitY = y;
     }
 
     /**
