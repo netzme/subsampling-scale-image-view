@@ -1,0 +1,39 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
+        android:id="@+id/imageView"
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"/>
+
+    <com.davemorrissey.labs.subscaleview.sample.crop.SquareLayout
+        android:id="@+id/cropper"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/cropper"
+        android:layout_centerInParent="true"
+    />
+
+    <Button android:id="@+id/button_crop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:text="Crop" />
+
+
+    <Button android:id="@+id/button_switch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/button_crop"
+        android:layout_toRightOf="@id/button_crop"
+        android:text="Switch" />
+
+</RelativeLayout>

@@ -26,6 +26,7 @@ import com.davemorrissey.labs.subscaleview.sample.R.id;
 import com.davemorrissey.labs.subscaleview.sample.animation.AnimationActivity;
 import com.davemorrissey.labs.subscaleview.sample.basicfeatures.BasicFeaturesActivity;
 import com.davemorrissey.labs.subscaleview.sample.configuration.ConfigurationActivity;
+import com.davemorrissey.labs.subscaleview.sample.crop.CropActivity;
 import com.davemorrissey.labs.subscaleview.sample.eventhandling.EventHandlingActivity;
 import com.davemorrissey.labs.subscaleview.sample.eventhandlingadvanced.AdvancedEventHandlingActivity;
 import com.davemorrissey.labs.subscaleview.sample.extension.ExtensionActivity;
@@ -47,6 +48,7 @@ public class MainActivity extends Activity implements OnClickListener {
         findViewById(id.animation).setOnClickListener(this);
         findViewById(id.extension).setOnClickListener(this);
         findViewById(id.configuration).setOnClickListener(this);
+        findViewById(id.crop).setOnClickListener(this);
 
         findViewById(id.github).setOnClickListener(this);
         findViewById(id.self).setOnClickListener(this);
@@ -77,6 +79,9 @@ public class MainActivity extends Activity implements OnClickListener {
             startActivity(intent);
         } else if (view.getId() == id.configuration) {
             Intent intent = new Intent(this, ConfigurationActivity.class);
+            startActivity(intent);
+        } else if (view.getId() == id.crop) {
+            Intent intent = new Intent(this, CropActivity.class);
             startActivity(intent);
         } else if (view.getId() == id.github) {
             String url = "https://github.com/davemorrissey/subsampling-scale-image-view";
