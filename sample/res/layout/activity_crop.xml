@@ -13,13 +13,32 @@
         android:layout_height="match_parent"
         android:layout_weight="1"/>
 
-    <com.davemorrissey.labs.subscaleview.sample.crop.SquareLayout
-        android:id="@+id/cropper"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@drawable/cropper"
-        android:layout_centerInParent="true"
-    />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <View
+            android:id="@+id/upper_mask"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#32000000"/>
+
+        <com.davemorrissey.labs.subscaleview.sample.crop.SquareLayout
+            android:id="@+id/cropper"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_centerInParent="true"
+            />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="#32000000"/>
+
+    </LinearLayout>
 
     <Button android:id="@+id/button_crop"
         android:layout_width="wrap_content"

@@ -2,14 +2,14 @@ package com.davemorrissey.labs.subscaleview.sample.crop;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.database.sqlite.SQLiteOpenHelper;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.TypedValue;
 import android.view.Display;
 import android.view.View;
 import android.widget.Button;
@@ -33,10 +33,15 @@ public class CropActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_crop);
 
+        View upperMaskView = findViewById(R.id.upper_mask);
+        ColorDrawable upperMaskViewColor = (ColorDrawable) upperMaskView.getBackground();
+
         cropperView = findViewById(R.id.cropper);
+        cropperView.setBackgroundDrawable(new HoleInDrawable(upperMaskViewColor.getColor()));
 
         initialiseImage(images[index]);
         initializeSwitch();
+
     }
 
     private int adjustIndex() {
