@@ -4,10 +4,12 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.graphics.drawable.ColorDrawable;
+import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Display;
@@ -22,11 +24,12 @@ import com.davemorrissey.labs.subscaleview.sample.R;
 
 public class CropActivity extends Activity {
 
+    private static final int IMAGE_PICK = 105;
+
     private SubsamplingScaleImageView imageView;
     private View cropperView;
+    private Uri selectedImage;
 
-    private String[] images = {"emma.jpg", "squirrel.jpg"};
-    private int index = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,17 +42,33 @@ public class CropActivity extends Activity {
         cropperView = findViewById(R.id.cropper);
         cropperView.setBackgroundDrawable(new HoleInDrawable(upperMaskViewColor.getColor()));
 
-        initialiseImage(images[index]);
-        initializeSwitch();
+        Button button = (Button) findViewById(R.id.button_pick);
 
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                startActivityForResult(intent, IMAGE_PICK);
+            }
+        });
     }
 
-    private int adjustIndex() {
-        index = ++index % 2;
-        return index;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode,
+                                    Intent imageReturnedIntent) {
+        super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+
+        switch(requestCode) {
+            case IMAGE_PICK:
+                if(resultCode == RESULT_OK){
+                    selectedImage = imageReturnedIntent.getData();
+                    initialiseImage(ImageSource.uri(selectedImage));
+                }
+        }
     }
 
-    private void initialiseImage(String image) {
+    private void initialiseImage(ImageSource imageSource) {
         Display display = getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
@@ -58,9 +77,8 @@ public class CropActivity extends Activity {
         imageView = (SubsamplingScaleImageView)findViewById(R.id.imageView);
         imageView.setPanOffset(width, width);
         imageView.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_CENTER);
-        imageView.setImage(ImageSource.asset(image));
+        imageView.setOrientation(SubsamplingScaleImageView.ORIENTATION_USE_EXIF);
         imageView.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CUSTOM);
-
         imageView.setOnImageEventListener(new SubsamplingScaleImageView.OnImageEventListener() {
             @Override
             public void onReady() {
@@ -93,10 +111,17 @@ public class CropActivity extends Activity {
             }
         });
 
+        imageView.setImage(imageSource);
+
+
         findViewById(R.id.button_crop).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bitmap bitmap = doCrop(images[index]);
+                if (selectedImage == null) {
+                    return;
+                }
+
+                Bitmap bitmap = doCrop();
                 CropResultActivity.croppedBitmap = bitmap;
 
                 Intent intent = new Intent(CropActivity.this, CropResultActivity.class);
@@ -105,15 +130,14 @@ public class CropActivity extends Activity {
         });
     }
 
-    private Bitmap doCrop(String image) {
+    private Bitmap doCrop() {
         PointF leftSource = imageView.viewToSourceCoord(cropperView.getLeft(), cropperView.getTop());
         PointF rightSource = imageView.viewToSourceCoord(cropperView.getRight(), cropperView.getBottom());
 
         ImageRegionDecoder decoder = new SkiaImageRegionDecoder();
-        final String ASSET_SCHEME = "file:///android_asset/";
 
         try {
-            decoder.init(this, Uri.parse(ASSET_SCHEME + image));
+            decoder.init(this, selectedImage);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -124,20 +148,23 @@ public class CropActivity extends Activity {
                     1);
 
             decoder.recycle();
+
+            int rotation = imageView.getAppliedOrientation();
+            if (rotation > 0) {
+                Matrix matrix = new Matrix();
+                matrix.postRotate(rotation);
+
+                Bitmap resultBitmap = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+                        bitmap.getHeight(), matrix, true);
+
+                bitmap.recycle();
+
+                return resultBitmap;
+            }
+
             return bitmap;
         }
 
         return null;
-    }
-
-    private void initializeSwitch() {
-        Button button = (Button) findViewById(R.id.button_switch);
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                adjustIndex();
-                initialiseImage(images[index]);
-            }
-        });
     }
 }

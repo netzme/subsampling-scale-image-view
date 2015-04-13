@@ -46,13 +46,14 @@
         android:layout_alignParentBottom="true"
         android:text="Crop" />
 
-
-    <Button android:id="@+id/button_switch"
+    <Button
+        android:id="@+id/button_pick"
+        android:text="Pick"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/button_crop"
         android:layout_toRightOf="@id/button_crop"
-        android:text="Switch" />
+        />
 
 </RelativeLayout>

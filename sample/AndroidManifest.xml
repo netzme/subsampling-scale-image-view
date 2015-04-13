@@ -9,13 +9,10 @@
         android:minSdkVersion="13"
         android:targetSdkVersion="21" />
 
-    <android:uses-permission
-        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
-    <android:uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <android:uses-permission
-        android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="18" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
 
     <application
         android:icon="@drawable/launcher"
@@ -45,6 +42,10 @@
         <activity
             android:name=".crop.CropResultActivity"
             android:label="@string/title_activity_crop_result" >
+        </activity>
+        <activity
+            android:name=".crop.GalleryActivity"
+            android:label="@string/title_activity_gallery" >
         </activity>
     </application>
 

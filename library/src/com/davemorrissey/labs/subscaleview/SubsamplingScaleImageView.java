@@ -19,6 +19,7 @@ package com.davemorrissey.labs.subscaleview;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.database.Cursor;
 import android.graphics.*;
 import android.graphics.Paint.Style;
 import android.media.ExifInterface;
@@ -27,6 +28,7 @@ import android.os.AsyncTask;
 import android.os.Build.VERSION;
 import android.os.Handler;
 import android.os.Message;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
@@ -1349,7 +1351,6 @@ public class SubsamplingScaleImageView extends View {
         @Override
         protected int[] doInBackground(Void... params) {
             try {
-                String sourceUri = source.toString();
                 Context context = contextRef.get();
                 Class<? extends ImageRegionDecoder> decoderClass = decoderClassRef.get();
                 SubsamplingScaleImageView view = viewRef.get();
@@ -1358,7 +1359,7 @@ public class SubsamplingScaleImageView extends View {
                     Point dimensions = decoder.init(context, source);
                     int sWidth = dimensions.x;
                     int sHeight = dimensions.y;
-                    int exifOrientation = view.getExifOrientation(sourceUri);
+                    int exifOrientation = view.getExifOrientation(source);
                     if (view.sRegion != null) {
                         sWidth = view.sRegion.width();
                         sHeight = view.sRegion.height();
@@ -1502,13 +1503,12 @@ public class SubsamplingScaleImageView extends View {
         @Override
         protected Integer doInBackground(Void... params) {
             try {
-                String sourceUri = source.toString();
                 Context context = contextRef.get();
                 Class<? extends ImageDecoder> decoderClass = decoderClassRef.get();
                 SubsamplingScaleImageView subsamplingScaleImageView = viewRef.get();
                 if (context != null && decoderClass != null && subsamplingScaleImageView != null) {
                     bitmap = decoderClass.newInstance().decode(context, source);
-                    return subsamplingScaleImageView.getExifOrientation(sourceUri);
+                    return subsamplingScaleImageView.getExifOrientation(source);
                 }
             } catch (Exception e) {
                 Log.e(TAG, "Failed to load bitmap", e);
@@ -1584,8 +1584,9 @@ public class SubsamplingScaleImageView extends View {
      * Helper method for load tasks. Examines the EXIF info on the image file to determine the orientation.
      * This will only work for external files, not assets, resources or other URIs.
      */
-    private int getExifOrientation(String sourceUri) {
+    private int getExifOrientation(Uri uri) {
         int exifOrientation = ORIENTATION_0;
+        String sourceUri = uri.toString();
         if (sourceUri.startsWith(ImageSource.FILE_SCHEME) && !sourceUri.startsWith(ImageSource.ASSET_SCHEME)) {
             try {
                 ExifInterface exifInterface = new ExifInterface(sourceUri.substring(ImageSource.FILE_SCHEME.length() - 1));
@@ -1604,8 +1605,24 @@ public class SubsamplingScaleImageView extends View {
             } catch (Exception e) {
                 Log.w(TAG, "Could not get EXIF orientation of image");
             }
+            return exifOrientation;
+        } else {
+            return getOrientationFromUri(getContext(), uri);
         }
-        return exifOrientation;
+
+    }
+
+    private int getOrientationFromUri(Context context, Uri photoUri) {
+    /* it's on the external media. */
+        Cursor cursor = context.getContentResolver().query(photoUri,
+                new String[] { MediaStore.Images.ImageColumns.ORIENTATION }, null, null, null);
+
+        if (cursor.getCount() != 1) {
+            return ORIENTATION_0;
+        }
+
+        cursor.moveToFirst();
+        return cursor.getInt(0);
     }
 
     private static class Tile {
