@@ -143,8 +143,13 @@ public class CropActivity extends Activity {
         }
 
         if (decoder.isReady()) {
+            Rect rect = new Rect((int) leftSource.x, (int)leftSource.y,
+                    (int)rightSource.x, (int)rightSource.y);
+
+            Rect targetRect = rotateRect(rect);
+
             Bitmap bitmap = decoder.decodeRegion(
-                    new Rect((int) leftSource.x, (int)leftSource.y, (int)rightSource.x, (int)rightSource.y),
+                    targetRect,
                     1);
 
             decoder.recycle();
@@ -166,5 +171,24 @@ public class CropActivity extends Activity {
         }
 
         return null;
+    }
+
+    private Rect rotateRect(Rect sRect) {
+        Rect target = new Rect();
+        int rotation = imageView.getAppliedOrientation();
+        int sWidth = imageView.getSWidth();
+        int sHeight = imageView.getSHeight();
+
+        if (rotation == 0) {
+            target.set(sRect);
+        } else if (rotation == 90) {
+            target.set(sRect.top, sHeight - sRect.right, sRect.bottom, sHeight - sRect.left);
+        } else if (rotation == 180) {
+            target.set(sWidth - sRect.right, sHeight - sRect.bottom, sWidth - sRect.left, sHeight - sRect.top);
+        } else {
+            target.set(sWidth - sRect.bottom, sRect.left, sWidth - sRect.top, sRect.right);
+        }
+
+        return target;
     }
 }
