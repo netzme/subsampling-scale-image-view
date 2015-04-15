@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.davemorrissey.labs.subscaleview.sample"
+    android:hardwareAccelerated="true"
+    android:versionCode="3"
+    android:versionName="3.0.0" >
+
+    <uses-sdk
+        android:minSdkVersion="13"
+        android:targetSdkVersion="21" />
+
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
+
+    <application
+        android:icon="@drawable/launcher"
+        android:label="Scale Image View Demo"
+        android:theme="@style/demoTheme" >
+        <activity
+            android:name=".MainActivity"
+            android:label="Scale View Demo" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".basicfeatures.BasicFeaturesActivity" />
+        <activity android:name=".imagedisplay.ImageDisplayActivity" />
+        <activity android:name=".eventhandling.EventHandlingActivity" />
+        <activity android:name=".eventhandlingadvanced.AdvancedEventHandlingActivity" />
+        <activity android:name=".viewpager.ViewPagerActivity" />
+        <activity android:name=".animation.AnimationActivity" />
+        <activity android:name=".extension.ExtensionActivity" />
+        <activity android:name=".configuration.ConfigurationActivity" />
+        <activity
+            android:name=".crop.CropActivity"
+            android:label="@string/title_activity_crop" >
+        </activity>
+        <activity
+            android:name=".crop.CropResultActivity"
+            android:label="@string/title_activity_crop_result" >
+        </activity>
+        <activity
+            android:name=".crop.GalleryActivity"
+            android:label="@string/title_activity_gallery" >
+        </activity>
+    </application>
+
+</manifest>
