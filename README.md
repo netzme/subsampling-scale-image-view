@@ -29,11 +29,11 @@ Version 3.x.x includes breaking changes. Please view the [migration guide](https
 
 **Are you using this library in your app? Let me know and I'll add it to this list.**
 
-| [![Fourth Mate](https://lh3.ggpht.com/2ALnL-05ILKLwP9U8Dfy7n4iI54OlXeZG-rHf31FP5l8Bup9wws9wnSlyX56ShgzlQ=w100)](https://play.google.com/store/apps/details?id=com.sleetworks.serenity.android) | [![Sync for reddit](https://lh5.ggpht.com/eOcmQUHHFCXM5uiajTkTsak5sIB5eTLKXaKSGGGWi8TJ3edYtqz8EtvjlOto5eFYvoLb=w100)](https://play.google.com/store/apps/details?id=com.laurencedawson.reddit_sync) | [![Journey](https://lh3.ggpht.com/Mz6YqxKsLfVbjYVHj_3nfUxLe5Yvl9W4KO2sKnwud6hZl5mnGitm55PnILT2jx4Hafv6=w100)](https://play.google.com/store/apps/details?id=com.journey.app)  |
-|---|---|---|
-| **Fourth Mate** | **Sync for reddit** | **Journal** |
-| [![Clover](https://lh5.ggpht.com/Q8vw6LLyj3AjRev4ID3uvFUxnMp4ca4eBEaPlkupcK7cNn2xtVg-wIxVsKSJ-IIFaUM=w100)](https://play.google.com/store/apps/details?id=org.floens.chan)  | [![Tag Gallery](https://lh5.ggpht.com/mKch3_fgPYswBPmZ-qEvp91_fPKdbvN2UubCvUTDqy1sAaLJBzfFYETb-sJgPfCvDg=w100)](https://play.google.com/store/apps/details?id=me.snapdiary.us.taggallery)  | [![nycTrans.it](https://lh5.ggpht.com/eDe_bnb2KVXd6fwjJDroWYfEs7Qy-ity93s4LnOwei3S8AGZIeJy8wwmjllt1TKciD4=w100)](https://play.google.com/store/apps/details?id=com.nyctrans.it)  |
-| **Clover** | **Tag Gallery** | **nycTrans.it** |
+| [![Fourth Mate](https://lh3.ggpht.com/2ALnL-05ILKLwP9U8Dfy7n4iI54OlXeZG-rHf31FP5l8Bup9wws9wnSlyX56ShgzlQ=w100)](https://play.google.com/store/apps/details?id=com.sleetworks.serenity.android) | [![Sync for reddit](https://lh5.ggpht.com/eOcmQUHHFCXM5uiajTkTsak5sIB5eTLKXaKSGGGWi8TJ3edYtqz8EtvjlOto5eFYvoLb=w100)](https://play.google.com/store/apps/details?id=com.laurencedawson.reddit_sync) | [![Journey](https://lh3.ggpht.com/Mz6YqxKsLfVbjYVHj_3nfUxLe5Yvl9W4KO2sKnwud6hZl5mnGitm55PnILT2jx4Hafv6=w100)](https://play.google.com/store/apps/details?id=com.journey.app) | [![Clover](https://lh5.ggpht.com/Q8vw6LLyj3AjRev4ID3uvFUxnMp4ca4eBEaPlkupcK7cNn2xtVg-wIxVsKSJ-IIFaUM=w100)](https://play.google.com/store/apps/details?id=org.floens.chan) | [![Tag Gallery](https://lh5.ggpht.com/mKch3_fgPYswBPmZ-qEvp91_fPKdbvN2UubCvUTDqy1sAaLJBzfFYETb-sJgPfCvDg=w100)](https://play.google.com/store/apps/details?id=me.snapdiary.us.taggallery) |
+|---|---|---|---|---|
+| **Fourth Mate** | **Sync for reddit** | **Journal** | **Clover** | **Tag Gallery** |
+| [![nycTrans.it](https://lh5.ggpht.com/eDe_bnb2KVXd6fwjJDroWYfEs7Qy-ity93s4LnOwei3S8AGZIeJy8wwmjllt1TKciD4=w100)](https://play.google.com/store/apps/details?id=com.nyctrans.it) | [![RR File Locker](https://lh4.ggpht.com/taUucj91wLM_uLq-XMLo-9Urk4SeQYW1WO4oquJ_ynyJPrX7S0j0xoQ8k6q66ZElFg=w100)](https://play.google.com/store/apps/details?id=com.redrabbitsw.android.locker) | [![TransitMe NYC](https://lh3.googleusercontent.com/aErQHPHTn6TeqmGRHybIZoEE7uF1MwTXTN4upuIsMpJurwWGuF_9tAhaxspMvTBdGaqG=w100)](https://play.google.com/store/apps/details?id=com.transitme.app) | [![Mr Whipped Comics](https://lh3.googleusercontent.com/1Wtvc4dM8ZBeUWB1dFqjrn_mrwq12xVbsux9QMXQrPL3VdZi2v6OuFQ7N0k5iT7tQw=w100)](https://play.google.com/store/apps/details?id=com.pst.mrwhipped) | |
+| **nycTrans.it** | **RR File Locker** | **TransitMe NYC** | **Mr Whipped Comics** | |
 
 ## Features
 
@@ -83,7 +83,7 @@ Version 3.x.x includes breaking changes. Please view the [migration guide](https
 
 ## Quick start
 
-**1)** Add `com.davemorrissey.labs:subsampling-scale-image-view:3.1.3` as a dependency in your build.gradle file.
+**1)** Add `com.davemorrissey.labs:subsampling-scale-image-view:3.4.0` as a dependency in your build.gradle file.
 
 **2)** Add the view to your layout XML.
 
@@ -96,7 +96,7 @@ Version 3.x.x includes breaking changes. Please view the [migration guide](https
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
 
-    </RelativeLayout>
+    </LinearLayout>
 
 **3)** Now, in your fragment or activity, set the image resource, asset name or file path.
 
