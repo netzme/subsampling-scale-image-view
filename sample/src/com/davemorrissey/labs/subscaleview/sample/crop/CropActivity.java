@@ -109,6 +109,11 @@ public class CropActivity extends Activity {
             public void onTileLoadError(Exception e) {
 
             }
+
+            @Override
+            public void onPreviewReleased() {
+
+            }
         });
 
         imageView.setImage(imageSource);
